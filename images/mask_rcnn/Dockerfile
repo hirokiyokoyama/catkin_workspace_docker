@@ -59,7 +59,7 @@ RUN mkdir /root/.gdrive
 COPY ./token_v2.json /root/.gdrive
 COPY ./gdrive /usr/local/bin
 WORKDIR /catkin_ws/src/mask_rcnn_ros/data
-RUN gdrive download 1_PM6sEsqcktr-HOZ7uV6BJRIqH_gBPlvi
+RUN gdrive download 1_PM6sEsqcktr-HOZ7uV6BJRIqH_gBPlv
 RUN tar -zxvf mask_rcnn_ros_data.tar.gz && rm -f mask_rcnn_ros_data.tar.gz
 
 # update mask_rcnn_ros
