@@ -20,7 +20,7 @@ services:
     environment:
       - "ROS_HOSTNAME=mask_rcnn"
       - "ROS_MASTER_URI=http://openni2:11311"
-    command: rosrun mask_rcnn mask_rcnn.py image:=/camera/rgb/image_rect_color
+    command: rosrun mask_rcnn mask_rcnn_node.py image:=/camera/rgb/image_rect_color
 
   visualize:
     build:
