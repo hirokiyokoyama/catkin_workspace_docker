@@ -49,7 +49,7 @@ COPY ./gdrive /usr/local/bin
 
 # install other packages
 RUN apt-get update && apt-get install -y \
-    python-opencv \
+    python-opencv ros-$ROS_DISTRO-cv-bridge \
     && rm -rf /var/lib/apt/lists/*
 
 # setup entrypoint
