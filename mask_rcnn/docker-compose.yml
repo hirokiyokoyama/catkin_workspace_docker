@@ -2,7 +2,7 @@ version: '2.3'
 
 services:
   openni2:
-    build: ../dockerfiles/openni2
+    image: hirokiyokoyama/openni2_ros
     container_name: openni2
     privileged: true
     environment:
@@ -11,10 +11,7 @@ services:
     command: roslaunch openni2_launch openni2.launch
 
   mask_rcnn:
-    build:
-      context: ../dockerfiles/mask_rcnn
-      args:
-        tf_tag: latest-gpu
+    image: hirokiyokoyama/mask_rcnn_ros
     container_name: mask_rcnn
     runtime: nvidia
     environment:
@@ -23,10 +20,7 @@ services:
     command: rosrun mask_rcnn mask_rcnn_node.py image:=/camera/rgb/image_rect_color
 
   visualize:
-    build:
-      context: ../dockerfiles/mask_rcnn
-      args:
-        tf_tag: latest-gpu
+    image: hirokiyokoyama/mask_rcnn_ros
     container_name: visualize
     environment:
       - "ROS_HOSTNAME=visualize"
