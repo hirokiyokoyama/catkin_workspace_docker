@@ -1,8 +1,7 @@
-ARG tf_tag=latest-gpu
-ARG ros_distro=kinetic
-
-FROM tensorflow/tensorflow:${tf_tag}
+ARG TF_TAG=latest-gpu
+FROM tensorflow/tensorflow:${TF_TAG}
 LABEL maintainer "hirokiyokoyama <hiroki.yokoyama@okadanet.org>"
+ARG ROS_DISTRO=kinetic
 
 # install packages
 RUN apt-get update && apt-get install -q -y \
@@ -32,9 +31,9 @@ ENV LC_ALL C.UTF-8
 RUN rosdep init 
 
 # install ros packages
-ENV ROS_DISTRO ${ros_distro}
+ENV ROS_DISTRO ${ROS_DISTRO}
 RUN apt-get update && apt-get install -y \
-    ros-${ros_distro}-ros-core=1.3.2-0* \
+    ros-$ROS_DISTRO-ros-core=1.3.2-0* \
     && rm -rf /var/lib/apt/lists/*
 
 # create catkin workspace
