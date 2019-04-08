@@ -1,0 +1,32 @@
+version: '2.3'
+
+services:
+  realsense:
+    image: iory/docker-ros-d415
+    container_name: realsense
+    privileged: true
+    environment:
+      - "ROS_HOSTNAME=realsense"
+      - "ROS_MASTER_URI=http://realsense:11311"
+    command: roslaunch realsense2_camera rs_rgbd.launch
+
+  mask_rcnn:
+    image: hirokiyokoyama/yolo_ros
+    container_name: yolo
+    runtime: nvidia
+    environment:
+      - "ROS_HOSTNAME=yolo"
+      - "ROS_MASTER_URI=http://realsense:11311"
+    command: rosrun yolo_ros yolo.py --ckpt /catkin_ws/src/yolo_ros/data/yolo9000.ckpt --names /catkin_ws/src/yolo_ros/data/9k.names --tree /catkin_ws/src/yolo_ros/data/9k.tree image:=/camera/color/image_rect_color
+
+  visualize:
+    image: hirokiyokoyama/yolo_ros
+    container_name: visualize
+    environment:
+      - "ROS_HOSTNAME=visualize"
+      - "ROS_MASTER_URI=http://realsense:11311"
+      - "DISPLAY=$DISPLAY"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    command: rosrun yolo_ros visualize.py image:=/camera/color/image_rect_color
+
