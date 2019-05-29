@@ -1,6 +1,6 @@
 # source this file to run ros commands on docker containers
 
-alias roscore='docker run -it --rm --net=host -e ROS_HOSTNAME=$(hostname).local ros:kinetic roscore'
+alias roscore='docker run -it --rm --net=host ros:kinetic roscore'
 function ros () {
     xhost +
     docker run -it --rm -u $(id -u):$(id -g) --net=host \
